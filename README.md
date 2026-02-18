@@ -21,7 +21,20 @@
 
 ## Key Benefits
 
-- **Cost Savings:** Access professional tools for a fraction of the retail price.
-- **Hyper-Convenience:** Pick up items from neighbors just a few doors down.
-- **Passive Income:** Monetize idle assets that are gathering dust.
-- **Community Trust:** Build social connections within the neighborhood.
+### For The Borrower
+
+- **Smart Geolocation Map:**
+  - _Feature:_ An interactive map that filters tools by type and sorts them by walking distance.
+  - _Benefit:_ Instantly find a "Heavy Duty Drill" 200m away instead of driving across town.
+- **Real-Time Savings Tracker:**
+  - _Feature:_ A dynamic display that compares the PAL rental fee against the retail purchase price of the tool.
+  - _Benefit:_ Users get immediate validation of their choice by seeing exactly how much they saved (e.g., "You saved $180 by borrowing instead of buying!").
+
+### For The Lender
+
+- **Availability Dashboard:**
+  - _Feature:_ A calendar to manage pricing and block out dates when the owner needs the tools.
+  - _Benefit:_ Monetize idle assets without losing personal access to them.
+- **Verified Trust System:**
+  - _Feature:_ Government ID verification badges and a 5-star rating history.
+  - _Benefit:_ Eliminates "stranger danger" and ensures tools are handed to reliable neighbors.
