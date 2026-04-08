@@ -1,0 +1,203 @@
+@startuml PAL_DomainModel
+' PAL - Peer Asset Lending - Domain Model (Conceptual Model)
+' Notation follows the lecture NSWI041-06 (UML class diagram with
+' UML classes for domain classes, attributes for intrinsic aspects,
+' associations for domain relations, and association classes for
+' associations that carry attributes).
+
+skinparam shadowing false
+skinparam classBackgroundColor #FDF6E3
+skinparam classBorderColor #333
+skinparam ArrowColor #444
+hide circle
+
+' ====== Core people ======
+class Person {
+  given name
+  surname
+  email address
+  phone number
+  registration date
+}
+
+class Borrower {
+  loyalty points
+}
+
+class Lender {
+  payout method
+}
+
+class IdVerification {
+  document type
+  verified at : Date
+  status
+}
+
+Person <|-- Borrower
+Person <|-- Lender
+Person "1" -- "0..1" IdVerification : owns
+
+' A real human can be both borrower and lender, so Borrower and Lender
+' are roles, not exclusive subtypes. We model this by allowing the same
+' Person to be linked to both via separate role-class instances.
+
+' ====== Tool & catalog ======
+class Tool {
+  name
+  description
+  retail price
+  base rental price
+  refundable deposit
+  state : Draft|Published|Archived
+  created at : Date
+}
+
+class ToolCategory {
+  name
+  parent category
+}
+
+class Photo {
+  url
+  caption
+  uploaded at : Date
+}
+
+class Address {
+  street
+  city
+  postal code
+  country
+  latitude
+  longitude
+}
+
+Tool "1" -- "1" Lender              : owned by
+Tool "0..*" -- "1" ToolCategory     : classified as
+Tool "1" *-- "1..*" Photo           : has photos
+Tool "1" -- "1" Address             : pickup location
+
+' ====== Availability ======
+class AvailabilitySlot {
+  start                : DateTime
+  end                  : DateTime
+  price override
+  state : Free|Reserved|Booked
+}
+
+Tool "1" *-- "0..*" AvailabilitySlot : has availability
+
+' ====== Rental request and booking ======
+class RentalRequest {
+  requested start : DateTime
+  requested end   : DateTime
+  message
+  created at      : DateTime
+  status : Pending|Approved|Rejected|Expired
+}
+
+class Booking {
+  paid amount
+  paid deposit
+  scheduled start : DateTime
+  scheduled end   : DateTime
+  state : PaidPickupPending|Active|Returned|Settled|Cancelled
+}
+
+' Modelled as association classes when there are attributes belonging
+' to the relation itself.
+RentalRequest "0..*" -- "1" Borrower         : submitted by
+RentalRequest "0..*" -- "1" AvailabilitySlot : requests slot
+RentalRequest "0..1" -- "0..1" Booking       : becomes
+
+Booking "0..*" -- "1" Borrower         : borrowed by
+Booking "0..*" -- "1" Tool             : of tool
+Booking "0..*" -- "1" AvailabilitySlot : reserves
+
+' ====== Payment ======
+class Payment {
+  amount
+  currency
+  state : Pending|Captured|Refunded|Failed
+  charged at  : DateTime
+  refunded at : DateTime
+  type : RentalFee|Deposit|ExtensionFee|Refund
+}
+
+class PaymentMethod {
+  brand
+  last 4 digits
+  added at : Date
+}
+
+Borrower "1" -- "0..*" PaymentMethod : owns
+Payment "0..*" -- "1" PaymentMethod  : charged to
+Booking "1" -- "1..*" Payment        : settled by
+
+' ====== Handover documentation ======
+class HandoverPhotoSet {
+  variant : Pickup|Return
+  taken at : DateTime
+  notes
+  borrower confirmed : Boolean
+}
+
+Booking "1" *-- "0..2" HandoverPhotoSet : documented by
+HandoverPhotoSet "1" *-- "1..*" Photo  : contains
+
+' ====== Extension and cancellation ======
+class ExtensionRequest {
+  new end : DateTime
+  additional fee
+  status : Pending|Approved|Rejected
+  decided at : DateTime
+}
+
+Booking "1" -- "0..*" ExtensionRequest : extended by
+
+class Cancellation {
+  cancelled at : DateTime
+  reason
+  refund amount
+  initiator : Borrower|Lender
+}
+
+Booking "1" -- "0..1" Cancellation : cancelled by
+
+' ====== Rating ======
+class Rating {
+  stars : 1..5
+  comment
+  created at : DateTime
+  visible    : Boolean
+}
+
+' Rating is mediated by the booking and the two roles of "rater" and "ratee".
+Booking "1" -- "0..2" Rating : rated by
+Rating  "0..*" -- "1" Person : rater
+Rating  "0..*" -- "1" Person : ratee
+
+' ====== Notifications (peripheral) ======
+class Notification {
+  channel : Push|Email
+  type
+  created at : DateTime
+  read at    : DateTime
+}
+
+Person "1" -- "0..*" Notification : receives
+
+note as N1
+  Domain rules (informal):
+  - Tool.refundable deposit >= 0 and >= 0.5 * retail price (recommended)
+  - AvailabilitySlot.start < AvailabilitySlot.end
+  - A Booking exists only if its RentalRequest is Approved AND
+    the rental fee + deposit Payment is Captured.
+  - A Rating is created only after Booking.state in {Returned, Settled}.
+  - A Rating becomes "visible" once both sides have rated, to avoid
+    retaliation bias (see UC-11).
+  - The same Person can play both Borrower and Lender roles.
+end note
+
+@enduml

@@ -1,0 +1,85 @@
+@startuml PAL_UseCaseDiagram
+' PAL - Peer Asset Lending - Use Case Diagram
+' Two subjects to keep the diagram readable, following the lecture's
+' "more subjects" approach (slide 59 of NSWI041-04).
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam UsecaseBackgroundColor #FDF6E3
+skinparam ActorBackgroundColor #EEE
+
+actor "Lender"   as AC_L
+actor "Borrower" as AC_B
+
+rectangle "PAL — Listing & Discovery" {
+    usecase "UC-01\nList a tool"                                  as UC01
+    usecase "UC-02\nManage tool availability\nand pricing"        as UC02
+    usecase "UC-03\nSearch tools\non a map"                       as UC03
+    usecase "UC-03a\nView tool detail"                            as UC03a
+    usecase "UC-10\nView real-time\nrental savings"               as UC10
+}
+
+rectangle "PAL — Booking, Handover & Feedback" {
+    usecase "UC-04\nSubmit a\nrental request"                     as UC04
+    usecase "UC-05\nReview and decide\na rental request"          as UC05
+    usecase "UC-06\nPay the\nrental deposit"                      as UC06
+    usecase "UC-07\nDocument tool condition\nat handover"         as UC07
+    usecase "UC-08\nRequest a\nrental extension"                  as UC08
+    usecase "UC-09\nCancel an upcoming\nreservation"              as UC09
+    usecase "UC-11\nRate the\nother party"                        as UC11
+}
+
+' --- Actor associations ---
+AC_L --> UC01
+AC_L --> UC02
+AC_L --> UC05
+AC_L --> UC07
+AC_L --> UC09
+AC_L --> UC11
+
+AC_B --> UC03
+AC_B --> UC04
+AC_B --> UC06
+AC_B --> UC07
+AC_B --> UC08
+AC_B --> UC09
+AC_B --> UC10
+AC_B --> UC11
+
+' --- Use case relationships ---
+
+' UC-01 (list a tool) is a precondition for UC-02 (managing its availability).
+UC02 ..> UC01 : <<include>>
+
+' Viewing a tool detail extends searching it on the map.
+UC03a .u.> UC03 : <<extend>>
+
+' The savings tracker is shown inside any tool detail; it extends UC-03a.
+UC10 .u.> UC03a : <<extend>>
+
+' Submitting a request extends the tool detail (the user is on the detail
+' page when they decide to "Request rental").
+UC04 .u.> UC03a : <<extend>>
+
+' Paying the deposit happens after a request is approved by the lender,
+' so it extends "Review and decide a rental request" at the
+' extension point "request approved".
+UC06 .u.> UC05 : "<<extend>>\n(after approval)"
+
+' Both pickup and return go through the same handover documentation flow.
+' We model that flow once and extend it from UC-06 (pickup time) and from
+' the implicit return step that's part of UC-08/UC-09's lifecycle.
+UC07 .u.> UC06 : "<<extend>>\n(at pickup)"
+
+' Cancellation can happen at any point before pickup, so it extends both
+' the request flow and the booking flow.
+UC09 .u.> UC04 : <<extend>>
+UC09 .u.> UC06 : <<extend>>
+
+' Extension and rating happen on an active / finished booking.
+UC08 .u.> UC07 : <<extend>>
+UC11 .u.> UC07 : "<<extend>>\n(after return)"
+
+@enduml
