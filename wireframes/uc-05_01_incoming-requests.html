@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-05 — Incoming Requests</title>
+    <link rel="stylesheet" href="_shared.css" />
+    <style>
+      /* Desktop-specific tweaks */
+      body {
+        padding: 24px;
+      }
+      .device.device-desktop .app-header h1 {
+        font-size: 22px;
+      }
+      .desktop-topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 24px;
+        border-bottom: 1px solid #ccc;
+      }
+      .desktop-topbar .brand {
+        font-weight: 600;
+      }
+      .desktop-nav {
+        display: flex;
+        gap: 18px;
+        font-size: 13px;
+        color: #666;
+      }
+      .desktop-nav .active {
+        color: #222;
+        font-weight: 600;
+        text-decoration: underline;
+      }
+      .desktop-main {
+        padding: 24px;
+        flex: 1;
+        overflow: auto;
+      }
+      .list-head {
+        display: grid;
+        grid-template-columns: 56px 1.2fr 1.4fr 1fr 0.8fr 0.8fr 80px;
+        gap: 12px;
+        padding: 0 12px 8px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #888;
+      }
+      .filter-bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .filter-bar .pill {
+        padding: 6px 12px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-05 · 1</b> — Incoming requests (list) · desktop 1280×800
+    </div>
+
+    <div class="device device-desktop">
+      <div class="desktop-topbar">
+        <div class="brand">PAL</div>
+        <nav class="desktop-nav">
+          <span>My tools</span>
+          <span class="active">Incoming requests</span>
+          <span>My loans</span>
+          <span>Earnings</span>
+          <span class="mut">████</span>
+        </nav>
+        <div class="hstack">
+          <div class="img-box thumb-sm" style="border-radius: 50%">
+            <span>IMG</span>
+          </div>
+          <span class="small mut">████</span>
+        </div>
+      </div>
+
+      <div class="desktop-main vstack">
+        <div class="hstack" style="justify-content: space-between">
+          <div class="hstack">
+            <h1 style="font-size: 22px; font-weight: 600">Incoming requests</h1>
+            <span
+              class="count-badge"
+              style="
+                padding: 2px 10px;
+                border: 1px solid #999;
+                border-radius: 999px;
+                background: #f3f3f3;
+                font-size: 12px;
+              "
+              >3 pending</span
+            >
+          </div>
+          <div class="small mut">Sorted by: newest first ▾</div>
+        </div>
+
+        <div class="filter-bar">
+          <span class="pill pill-dark">All (3)</span>
+          <span class="pill">Pending</span>
+          <span class="pill">Approved</span>
+          <span class="pill">Rejected</span>
+        </div>
+
+        <div class="list-head">
+          <div>Tool</div>
+          <div>Name</div>
+          <div>Borrower</div>
+          <div>Requested dates</div>
+          <div>Status</div>
+          <div>Rating</div>
+          <div></div>
+        </div>
+
+        <div class="vstack" style="gap: 8px">
+          <div class="list-row">
+            <div class="img-box thumb"><span>IMG</span></div>
+            <div>
+              <b>Heavy Duty Drill</b>
+              <div class="tiny mut">████ ████</div>
+            </div>
+            <div>
+              ████ ████
+              <div class="tiny mut">✓ ID verified</div>
+            </div>
+            <div>
+              24 Apr → 26 Apr
+              <div class="tiny mut">3 days</div>
+            </div>
+            <div><span class="pill">Pending</span></div>
+            <div>
+              <span class="stars">★★★★<span class="dim">★</span></span>
+              <div class="tiny mut">4.2 · 18 reviews</div>
+            </div>
+            <a class="link" href="#">Review →</a>
+          </div>
+
+          <div class="list-row">
+            <div class="img-box thumb"><span>IMG</span></div>
+            <div>
+              <b>Mitre Saw</b>
+              <div class="tiny mut">████ ████</div>
+            </div>
+            <div>
+              ████ ████
+              <div class="tiny mut">✓ ID verified</div>
+            </div>
+            <div>
+              28 Apr → 29 Apr
+              <div class="tiny mut">2 days</div>
+            </div>
+            <div><span class="pill">Pending</span></div>
+            <div>
+              <span class="stars">★★★★★</span>
+              <div class="tiny mut">4.9 · 31 reviews</div>
+            </div>
+            <a class="link" href="#">Review →</a>
+          </div>
+
+          <div class="list-row">
+            <div class="img-box thumb"><span>IMG</span></div>
+            <div>
+              <b>Pressure Washer</b>
+              <div class="tiny mut">████ ████</div>
+            </div>
+            <div>
+              ████ ████
+              <div class="tiny mut">Not verified</div>
+            </div>
+            <div>
+              30 Apr → 01 May
+              <div class="tiny mut">2 days</div>
+            </div>
+            <div><span class="pill">Pending</span></div>
+            <div>
+              <span class="stars">★★★<span class="dim">★★</span></span>
+              <div class="tiny mut">3.1 · 4 reviews</div>
+            </div>
+            <a class="link" href="#">Review →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

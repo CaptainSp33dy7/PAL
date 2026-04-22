@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-06 — Payment error</title>
+    <link rel="stylesheet" href="_shared.css" />
+    <style>
+      .alert-error {
+        border: 2px solid #222;
+        background: repeating-linear-gradient(
+          45deg,
+          #fff,
+          #fff 6px,
+          #f0f0f0 6px,
+          #f0f0f0 12px
+        );
+      }
+      .alert-error .alert-title::before {
+        content: "✕  ";
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-06 · 3</b> — Payment error (alt 5a) · mobile 390×844
+    </div>
+
+    <div class="device">
+      <div class="statusbar"><span>9:41</span><span>████</span></div>
+
+      <header class="app-header">
+        <span class="back-btn">←</span>
+        <h1>Pay rental deposit</h1>
+      </header>
+
+      <div class="context-banner">
+        <span>RentalRequest · state: Approved</span>
+        <span class="mut">Payment failed</span>
+      </div>
+
+      <div class="content">
+        <!-- Error alert (mirrors summary layout) -->
+        <div class="alert alert-error">
+          <div class="alert-title">Payment declined</div>
+          <div class="alert-body">
+            Reason: <b>do_not_honor</b> — the issuing bank rejected the charge.
+          </div>
+          <div class="tiny mut">
+            No funds were taken. You can try a different method.
+          </div>
+        </div>
+
+        <!-- Tool summary row -->
+        <div class="card-row">
+          <div class="img-box thumb"><span>IMG</span></div>
+          <div class="grow">
+            <div style="font-weight: 600">Heavy Duty Drill</div>
+            <div class="tiny mut">24 Apr → 26 Apr</div>
+          </div>
+        </div>
+
+        <!-- Itemized charges -->
+        <div class="section-title">Charges</div>
+        <div class="table-charges">
+          <div class="trow"><span>Rental fee</span><span>€ 36.00</span></div>
+          <div class="trow">
+            <span>Refundable deposit</span><span>€ 120.00</span>
+          </div>
+          <div class="trow"><span>Total now</span><span>€ 156.00</span></div>
+        </div>
+
+        <!-- Payment method that just failed -->
+        <div class="section-title">Last attempted method</div>
+        <div class="card-row">
+          <div class="img-box thumb-sm"><span>VISA</span></div>
+          <div class="grow">
+            <div style="font-weight: 600">Visa •••• 4242</div>
+            <div class="tiny mut">Declined at ████ ████</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn">Try a different method</button>
+        <button class="btn btn-outline">Cancel</button>
+      </div>
+    </div>
+  </body>
+</html>

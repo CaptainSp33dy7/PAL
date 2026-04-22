@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-06 — Payment summary</title>
+    <link rel="stylesheet" href="_shared.css" />
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-06 · 1</b> — Payment summary · mobile 390×844
+    </div>
+
+    <div class="device">
+      <div class="statusbar"><span>9:41</span><span>████</span></div>
+
+      <header class="app-header">
+        <span class="back-btn">←</span>
+        <h1>Pay rental deposit</h1>
+      </header>
+
+      <div class="context-banner">
+        <span>RentalRequest · state: Approved</span>
+        <span class="mut">Deposit due</span>
+      </div>
+
+      <div class="content">
+        <!-- Tool summary row -->
+        <div class="card-row">
+          <div class="img-box thumb"><span>IMG</span></div>
+          <div class="grow">
+            <div style="font-weight: 600">Heavy Duty Drill</div>
+            <div class="tiny mut">████ ████</div>
+          </div>
+        </div>
+
+        <!-- Interval -->
+        <div class="section-title">Interval</div>
+        <div class="card">
+          <div class="row">
+            <span class="row-label">From</span
+            ><span class="row-value">24 Apr 09:00</span>
+          </div>
+          <div class="row">
+            <span class="row-label">To</span
+            ><span class="row-value">26 Apr 18:00</span>
+          </div>
+          <div class="row">
+            <span class="row-label">Duration</span
+            ><span class="row-value">3 days</span>
+          </div>
+        </div>
+
+        <!-- Itemized charges -->
+        <div class="section-title">Charges</div>
+        <div class="table-charges">
+          <div class="trow"><span>Rental fee</span><span>€ 36.00</span></div>
+          <div class="trow">
+            <span>Refundable deposit</span><span>€ 120.00</span>
+          </div>
+          <div class="trow"><span>Total now</span><span>€ 156.00</span></div>
+        </div>
+        <a class="inline-link">View refund policy →</a>
+
+        <!-- Payment method preview row -->
+        <div class="section-title">Payment method</div>
+        <div class="card-row">
+          <div class="img-box thumb-sm"><span>VISA</span></div>
+          <div class="grow">
+            <div style="font-weight: 600">Visa •••• 4242</div>
+            <div class="tiny mut">Expires 09/27</div>
+          </div>
+          <a class="inline-link">Change</a>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn">Pay € 156.00</button>
+        <button class="btn btn-outline">Cancel</button>
+      </div>
+    </div>
+  </body>
+</html>

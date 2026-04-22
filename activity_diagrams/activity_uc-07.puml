@@ -1,0 +1,80 @@
+@startuml PAL_Activity_UC07
+' PAL — Activity diagram for UC-07: Document tool condition at handover
+
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam ActivityBackgroundColor #FDF6E3
+skinparam ActivityBorderColor #333
+skinparam ActivityDiamondBackgroundColor #FDF6E3
+skinparam ActivityDiamondBorderColor #333
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #888
+
+|System|
+start
+:Determine handover variant\nfrom Booking.state;
+if (Booking.state?) then (Paid – Pickup pending)
+  :variant := Pickup;
+else (Active – Return pending)
+  :variant := Return;
+endif
+
+|Lender|
+:Open booking on phone;
+:Choose "Start handover";
+
+|System|
+:Prompt Lender to take and upload\n>= 3 photos of the tool\nfrom different angles;
+
+repeat
+  |Lender|
+  :Take and upload photos\n(+ optional condition note);
+  |System|
+  if (Photo count >= 3?) then (no)
+    :Block progress\nand ask for more photos;
+  else (yes)
+  endif
+repeat while (Photo count >= 3?) is (no) not (yes)
+
+|System|
+:Signal Borrower's phone\n(via short code or NFC)\nto confirm inspection;
+
+|Borrower|
+if (Borrower response?) then (agrees)
+  |System|
+  :Attach HandoverPhotoSet to Booking\n(tagged with variant: Pickup or Return);
+  if (variant?) then (Pickup)
+    :Booking -> Active;
+    :Notify both parties:\nrental has started;
+    stop
+  else (Return)
+    :Booking -> Returned;
+    :Trigger UC-07a\n(deposit settlement);
+    :Notify both parties:\nrental has been returned;
+    stop
+  endif
+elseif (disputes) then (disputes)
+  |System|
+  :Mark handover -> Disputed;
+  :Open dispute case;
+  note right
+    Booking state does NOT change
+    until the dispute is resolved.
+  end note
+  :Notify support / dispute handler;
+  stop
+else (no-show)
+  note right
+    Alt 6a — Pickup variant only.
+    After the configured no-show
+    window has elapsed.
+  end note
+  |Lender|
+  :After no-show window,\nmark booking\n"Cancelled by borrower no-show";
+  |System|
+  :Booking -> Cancelled\n(reason: borrower no-show);
+  :Notify both parties;
+  stop
+endif
+
+@enduml

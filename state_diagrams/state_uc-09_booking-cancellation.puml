@@ -1,0 +1,72 @@
+' PAL — State diagram for UC-09: Booking cancellation paths + Refund substate
+@startuml PAL_State_UC09_Booking_Cancellation
+
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam StateBackgroundColor #FDF6E3
+skinparam StateBorderColor #333
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #888
+hide empty description
+
+title UC-09 — Booking state machine (cancellation focus) with Refund substate
+
+' ====== Top-level states (declared explicitly) ======
+state PaidPickupPending
+state Active
+state "RentalRequest.Approved\n(anchor from UC-05;\nno Booking exists yet)" as ExtApproved
+state "to dispute (UC-09 alt 1a)" as DisputeExit
+
+' ====== Composite: Cancelled (refund substates) ======
+state Cancelled {
+  [*] --> Refunding : / issue refund via gateway\n(amount per cancellation policy)
+  Refunding --> RefundSettled : gateway confirms refund
+  Refunding --> RefundPending : gateway failure (alt 6a)\n/ mark reconcile async
+  RefundPending --> RefundSettled : async reconciliation succeeds
+  RefundPending : do / retry reconciliation
+  RefundSettled --> [*]
+}
+
+' ====== Booking transitions into cancellation ======
+[*] --> PaidPickupPending : Booking entered from UC-06
+
+PaidPickupPending --> Cancelled : user cancels, pickup in future\n/ free slot, notify other party
+PaidPickupPending --> DisputeExit : pickup time already in past\n/ Cancel disabled, suggest dispute
+Active            --> Cancelled : dispute resolution cancels\nan active booking (rare)
+ExtApproved      --> Cancelled : (cross-UC, from UC-05.Approved)\nuser cancels before paying\n/ no refund needed (no charge yet)
+
+DisputeExit --> [*]
+
+note right of Cancelled
+  Cancellation policy (placeholders, flagged
+  as assumptions, see UC-09 step 3):
+   * more than 24h before pickup : 100% refund
+   * 6 to 24h before pickup      :  50% refund
+   * less than 6h before pickup  :   0% refund
+  Exact percentages are configurable and not
+  fixed in the spec.
+end note
+
+note left of DisputeExit
+  UC-09 alt 1a: when the pickup time has
+  already passed, the Cancel option is
+  disabled and the system suggests opening
+  a dispute instead. Modelled here as a
+  pseudo-terminal exit, not a real Cancelled
+  Booking state.
+end note
+
+note bottom
+  Source: UC-09. Diagram is complementary to
+  UC-07; only the Booking states that participate
+  in cancellation are shown. The "cancel before
+  payment" edge originates outside the Booking
+  lifecycle (RentalRequest.Approved in UC-05).
+
+  Operational (non-enum) substates inside Cancelled,
+  introduced per state_plan.md to model the Refund
+  machine: Refunding, RefundSettled, RefundPending
+  (alt 6a).
+end note
+
+@enduml

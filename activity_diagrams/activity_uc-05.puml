@@ -1,0 +1,53 @@
+@startuml PAL_Activity_UC05
+' PAL — Activity diagram for UC-05: Review and decide a rental request
+
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam ActivityBackgroundColor #FDF6E3
+skinparam ActivityBorderColor #333
+skinparam ActivityDiamondBackgroundColor #FDF6E3
+skinparam ActivityDiamondBorderColor #333
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #888
+
+|Lender|
+start
+:Receive notification\nor open "Incoming requests" list;
+:Open a Pending RentalRequest;
+
+|System|
+:Show request detail\n(tool, interval, rental price, deposit,\nborrower name & photo,\nID-verification badge, 5-star rating history);
+
+|Lender|
+if (Decision made\nwithin deadline?) then (no — timeout)
+  |System|
+  note right
+    Deadline: 24h
+    (configurable)
+  end note
+  :Auto-reject RentalRequest;
+  :Set RentalRequest -> Rejected;
+  :Notify Borrower (auto-rejected);
+  :Notify Lender (auto-rejected);
+  :Show confirmation to Lender;
+  stop
+else (yes)
+  if (Approve or Reject?) then (Approve)
+    |System|
+    :Set RentalRequest -> Approved;
+    :Reserve matching AvailabilitySlot\n(held until payment deadline);
+    :Notify Borrower:\n"You can now pay the deposit"\n(continues to UC-06);
+    :Show approval confirmation to Lender;
+    stop
+  else (Reject)
+    |Lender|
+    :Optionally enter reason for rejection;
+    |System|
+    :Set RentalRequest -> Rejected;
+    :Notify Borrower (rejected, with reason if given);
+    :Show rejection confirmation to Lender;
+    stop
+  endif
+endif
+
+@enduml

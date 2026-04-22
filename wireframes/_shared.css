@@ -1,0 +1,677 @@
+/* PAL wireframes — shared CSS
+ * Aesthetic: grayscale only, 1px solid #999 borders, 4px radius.
+ * Typography: system-ui 14–16px body, 18–22px headings.
+ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-size: 14px;
+  color: #222;
+  line-height: 1.4;
+  background: #ececec;
+}
+
+body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ---- Caption bar (outside device frame, for self-labelling screenshots) ---- */
+.caption {
+  padding: 8px 14px;
+  margin-bottom: 12px;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #666;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.2px;
+}
+.caption b {
+  color: #222;
+  font-weight: 600;
+}
+
+/* ---- Device frames ---- */
+.device {
+  width: 390px;
+  min-height: 844px;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.device-desktop {
+  width: 1280px;
+  min-height: 800px;
+}
+
+/* ---- Mobile status bar (tiny, just for realism) ---- */
+.statusbar {
+  padding: 4px 14px;
+  border-bottom: 1px solid #ddd;
+  font-size: 10px;
+  color: #888;
+  display: flex;
+  justify-content: space-between;
+  background: #f6f6f6;
+}
+
+/* ---- Header ---- */
+.app-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+}
+.app-header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  flex: 1;
+  line-height: 1.2;
+}
+.app-header .count-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border: 1px solid #999;
+  border-radius: 999px;
+  color: #333;
+  background: #f3f3f3;
+}
+.back-btn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #222;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.context-banner {
+  padding: 6px 14px;
+  font-size: 11px;
+  color: #666;
+  background: #f6f6f6;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ---- Content area ---- */
+.content {
+  flex: 1;
+  overflow: visible;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.content.no-gap {
+  gap: 0;
+}
+
+/* ---- Sections ---- */
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.card {
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-row {
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+}
+
+/* ---- Generic rows (dividers only) ---- */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+.row:last-child {
+  border-bottom: none;
+}
+.row-label {
+  color: #666;
+  font-size: 13px;
+}
+.row-value {
+  color: #222;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ---- Pills & badges ---- */
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid #999;
+  border-radius: 999px;
+  font-size: 11px;
+  color: #333;
+  background: #f3f3f3;
+  white-space: nowrap;
+}
+.pill-dark {
+  background: #222;
+  color: #fff;
+  border-color: #222;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #222;
+  background: #f6f6f6;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-block;
+  padding: 12px 18px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #222;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btn.btn-outline {
+  background: #fff;
+  color: #222;
+}
+.btn.btn-block {
+  display: block;
+  width: 100%;
+}
+.btn.btn-small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+.btn[disabled] {
+  background: #bbb;
+  border-color: #bbb;
+  cursor: not-allowed;
+  color: #f0f0f0;
+}
+.btn-destructive {
+  background: #fff;
+  color: #222;
+  border: 2px solid #222;
+  font-weight: 600;
+}
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+.btn-row .btn {
+  flex: 1;
+}
+
+/* ---- Placeholders ---- */
+.ph-text {
+  color: #888;
+  letter-spacing: 1px;
+  font-family: ui-monospace, monospace;
+}
+.ph-text.long::after {
+  content: "████ ████ ████ ████ ████";
+}
+.ph-text.med::after {
+  content: "████ ████ ████";
+}
+.ph-text.short::after {
+  content: "████ ████";
+}
+
+/* Bordered box with diagonal X, used for photos and thumbnails */
+.img-box {
+  border: 1px solid #999;
+  background: #f6f6f6;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 12px;
+  font-family: ui-monospace, monospace;
+}
+.img-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top right,
+      transparent calc(50% - 0.5px),
+      #bbb calc(50% - 0.5px),
+      #bbb calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    ),
+    linear-gradient(
+      to top left,
+      transparent calc(50% - 0.5px),
+      #bbb calc(50% - 0.5px),
+      #bbb calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+  pointer-events: none;
+}
+.img-box > span {
+  position: relative;
+  z-index: 1;
+  background: #f6f6f6;
+  padding: 0 6px;
+}
+.thumb {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+.thumb-sm {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+/* Map placeholder */
+.map-box {
+  border: 1px solid #999;
+  background: repeating-linear-gradient(
+    45deg,
+    #f3f3f3,
+    #f3f3f3 8px,
+    #eaeaea 8px,
+    #eaeaea 16px
+  );
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+/* ---- Form controls ---- */
+.textarea {
+  width: 100%;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 10px;
+  min-height: 72px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #666;
+  background: #fff;
+  resize: none;
+}
+.text-input {
+  width: 100%;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #666;
+  background: #fff;
+}
+.radio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+}
+.radio-dot {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #666;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+}
+.radio-dot.selected::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background: #222;
+  border-radius: 50%;
+}
+
+/* ---- Alerts ---- */
+.alert {
+  border: 2px solid #222;
+  border-radius: 4px;
+  padding: 12px;
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.alert-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #222;
+}
+.alert-body {
+  font-size: 13px;
+  color: #444;
+}
+
+.toast {
+  border: 1px solid #222;
+  background: #222;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---- Savings banner (UC-10 inline) ---- */
+.savings-banner {
+  border: 1px dashed #222;
+  padding: 10px 12px;
+  border-radius: 4px;
+  background: #fafafa;
+  font-size: 13px;
+  color: #222;
+}
+.savings-banner b {
+  font-size: 15px;
+}
+
+/* ---- Rating stars ---- */
+.stars {
+  color: #222;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+.stars .dim {
+  color: #bbb;
+}
+
+/* ---- List rows (incoming requests) ---- */
+.list-row {
+  display: grid;
+  grid-template-columns: 56px 1.2fr 1.4fr 1fr 0.8fr 0.8fr 80px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 13px;
+}
+.list-row .link {
+  color: #222;
+  text-decoration: underline;
+  font-weight: 500;
+  text-align: right;
+}
+
+/* ---- Photo grid (handover upload) ---- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.photo-slot {
+  aspect-ratio: 1 / 1;
+  border: 1px dashed #999;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 22px;
+  background: #fafafa;
+}
+.photo-slot.filled {
+  border-style: solid;
+  background: #f6f6f6;
+  position: relative;
+  overflow: hidden;
+}
+.photo-slot.filled::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top right,
+      transparent calc(50% - 0.5px),
+      #bbb calc(50% - 0.5px),
+      #bbb calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    ),
+    linear-gradient(
+      to top left,
+      transparent calc(50% - 0.5px),
+      #bbb calc(50% - 0.5px),
+      #bbb calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+}
+.photo-slot.filled > span {
+  position: relative;
+  z-index: 1;
+  background: #f6f6f6;
+  padding: 0 4px;
+  font-size: 11px;
+  font-family: ui-monospace, monospace;
+  color: #666;
+}
+.counter {
+  font-size: 12px;
+  color: #888;
+  font-family: ui-monospace, monospace;
+  text-align: right;
+}
+.counter.met {
+  color: #222;
+  font-weight: 600;
+}
+
+/* Quoted block (lender note on borrower confirm) */
+.quote {
+  border-left: 3px solid #999;
+  padding: 6px 10px;
+  background: #f6f6f6;
+  color: #444;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Swipe strip (3 thumbs in a row) */
+.swipe-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: hidden;
+}
+.swipe-strip .img-box {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+.swipe-dots {
+  text-align: center;
+  color: #bbb;
+  font-size: 14px;
+  letter-spacing: 3px;
+  margin-top: 4px;
+}
+.swipe-dots b {
+  color: #222;
+}
+
+/* Three-col charges table */
+.table-charges {
+  border: 1px solid #999;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.table-charges .trow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+.table-charges .trow:last-child {
+  border-bottom: none;
+  background: #f6f6f6;
+  font-weight: 600;
+}
+
+/* Bullet list */
+ul.plain {
+  list-style: none;
+  padding-left: 0;
+}
+ul.plain li {
+  padding: 6px 0 6px 18px;
+  position: relative;
+  font-size: 13px;
+  color: #444;
+}
+ul.plain li::before {
+  content: "•";
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  color: #222;
+  font-weight: 700;
+}
+
+/* Confirmation check */
+.big-check {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #222;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto;
+}
+
+/* Bottom action bar (sticky) */
+.action-bar {
+  border-top: 1px solid #ccc;
+  padding: 12px 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.action-bar.row-layout {
+  flex-direction: row;
+}
+.action-bar.row-layout .btn {
+  flex: 1;
+}
+
+/* Link */
+a.inline-link,
+.inline-link {
+  color: #222;
+  text-decoration: underline;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Utility */
+.hstack {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.vstack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.grow {
+  flex: 1;
+}
+.small {
+  font-size: 12px;
+}
+.tiny {
+  font-size: 11px;
+}
+.mut {
+  color: #666;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.mb-8 {
+  margin-bottom: 8px;
+}
+.mt-8 {
+  margin-top: 8px;
+}

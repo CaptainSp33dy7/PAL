@@ -1,0 +1,92 @@
+' PAL — State diagram for UC-07: Booking lifecycle (pickup + return handover)
+@startuml PAL_State_UC07_Booking_Handover
+
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam StateBackgroundColor #FDF6E3
+skinparam StateBorderColor #333
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #888
+hide empty description
+
+title UC-07 — Booking state machine (pickup and return handover)
+
+' ====== Top-level Booking states (declared explicitly) ======
+state PaidPickupPending
+state Active
+state Returned
+state Settled
+state Cancelled
+
+[*] --> PaidPickupPending : Booking created by UC-06
+
+' ====== PICKUP VARIANT (composite) ======
+state HandoverInProgress {
+  [*] --> PhotosUploading
+  PhotosUploading --> AwaitingBorrowerConfirm : photos >= 3 uploaded\n/ notify borrower via code/NFC
+  PhotosUploading --> PhotosUploading : fewer than 3 photos\n/ block and ask for more (alt 3a)
+  AwaitingBorrowerConfirm --> [*] : borrower agrees\n/ attach PhotoSet(variant=Pickup)
+  AwaitingBorrowerConfirm --> Disputed : borrower disagrees\n/ open dispute case (alt 5a)
+  Disputed : Booking state unchanged\nuntil dispute resolution
+}
+
+PaidPickupPending --> HandoverInProgress : lender starts handover\n/ prompt for 3 or more photos
+HandoverInProgress --> Active : composite exits via final\n(happy path)
+
+' ====== RETURN VARIANT (composite) ======
+state ReturnInProgress {
+  [*] --> PhotosUploadingR
+  PhotosUploadingR : (return photos)
+  PhotosUploadingR --> AwaitingBorrowerConfirmR : photos >= 3 uploaded\n/ notify borrower via code/NFC
+  PhotosUploadingR --> PhotosUploadingR : fewer than 3 photos\n/ block and ask for more (alt 3a)
+  AwaitingBorrowerConfirmR --> [*] : borrower agrees\n/ attach PhotoSet(variant=Return),\nstart deposit settlement (UC-07a)
+  AwaitingBorrowerConfirmR --> DisputedR : borrower disagrees\n/ open dispute case (alt 5a)
+  DisputedR : Booking state unchanged\nuntil dispute resolution
+}
+
+Active --> ReturnInProgress : lender starts return handover\n/ prompt for 3 or more photos
+ReturnInProgress --> Returned : composite exits via final\n(happy path)
+
+Returned --> Settled : deposit settlement completed (UC-07a)\n/ release held funds
+Settled  --> [*]
+
+' ====== Cross-UC edges to UC-09 ======
+PaidPickupPending --> Cancelled : (cross-UC, UC-09) user cancels\nor borrower no-show window elapsed (alt 6a)
+Active            --> Cancelled : (cross-UC, UC-09) dispute resolution\ncancels an active booking (rare)
+Cancelled --> [*]
+
+note right of HandoverInProgress
+  Pickup variant (UC-07 Basic Flow 1-7).
+  Exit via final pseudo-state moves the
+  Booking to Active. The Disputed substate
+  keeps the outer Booking state at
+  PaidPickupPending until resolution.
+end note
+
+note left of ReturnInProgress
+  Return variant (UC-07 Basic Flow 1-7,
+  variant = Return). Successful exit
+  triggers UC-07a (deposit settlement)
+  and moves the Booking to Returned.
+end note
+
+note bottom
+  Source: UC-07.
+  The borrower-no-show branch (UC-07 alt 6a)
+  routes PaidPickupPending to Cancelled after
+  the no-show window; represented here as a
+  second condition on the UC-09 cross-edge.
+  Cross-UC edges to Cancelled are annotated in
+  their labels (UC-09 owns the actual lifecycle).
+
+  Operational (non-enum) states introduced per
+  state_plan.md:
+   * HandoverInProgress, ReturnInProgress (composite)
+   * PhotosUploading / AwaitingBorrowerConfirm / Disputed
+  The return-variant substates are suffixed with "R"
+  only because PlantUML requires globally unique
+  identifiers; semantically they mirror the pickup
+  substates.
+end note
+
+@enduml

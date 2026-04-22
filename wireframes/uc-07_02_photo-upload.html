@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-07 — Photo upload</title>
+    <link rel="stylesheet" href="_shared.css" />
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-07 · 2</b> — Photo upload (lender) · mobile 390×844
+    </div>
+
+    <div class="device">
+      <div class="statusbar"><span>9:41</span><span>████</span></div>
+
+      <header class="app-header">
+        <span class="back-btn">←</span>
+        <h1>Photos of the tool</h1>
+        <span class="badge">Pickup</span>
+      </header>
+
+      <div class="context-banner">
+        <span>Booking · state: <b>Paid — pickup pending</b></span>
+        <span class="mut">2 of 3 minimum</span>
+      </div>
+
+      <div class="content">
+        <div class="section-title">Photos</div>
+
+        <!-- Photo grid: 3 cols, at least one filled, one shows multi -->
+        <div class="photo-grid">
+          <div class="photo-slot filled"><span>IMG 1</span></div>
+          <div class="photo-slot filled"><span>IMG 2</span></div>
+          <div class="photo-slot">+</div>
+          <div class="photo-slot">+</div>
+          <div class="photo-slot">+</div>
+          <div class="photo-slot">+</div>
+        </div>
+
+        <div class="counter">2 / 3 minimum</div>
+
+        <!-- Optional condition note -->
+        <div class="section-title">Condition note (optional)</div>
+        <textarea
+          class="textarea"
+          placeholder="████ ████ ████ — note any pre-existing wear"
+        ></textarea>
+
+        <!-- Hint about borrower step -->
+        <div class="card">
+          <div style="font-weight: 600">Next step</div>
+          <div class="small mut">
+            When you have at least 3 photos, hand the phone to the borrower (or
+            share a code / NFC tap) so they can confirm the tool's condition.
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn" disabled>Ready for borrower to confirm</button>
+        <div class="tiny mut center">Add 1 more photo to enable</div>
+      </div>
+    </div>
+  </body>
+</html>

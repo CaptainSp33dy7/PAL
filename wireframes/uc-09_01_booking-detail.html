@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-09 — Booking detail</title>
+    <link rel="stylesheet" href="_shared.css" />
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-09 · 1</b> — Booking detail with Cancel option · mobile
+      390×844
+    </div>
+
+    <div class="device">
+      <div class="statusbar"><span>9:41</span><span>████</span></div>
+
+      <header class="app-header">
+        <span class="back-btn">←</span>
+        <h1>Booking</h1>
+      </header>
+
+      <div class="context-banner">
+        <span>Booking · #BK-20402</span>
+        <span class="mut">Borrower view</span>
+      </div>
+
+      <div class="content">
+        <!-- Booking summary -->
+        <div class="card">
+          <div class="hstack">
+            <div class="img-box thumb"><span>IMG</span></div>
+            <div class="grow">
+              <div style="font-weight: 600">Heavy Duty Drill</div>
+              <div class="tiny mut">Lender: ████ ████</div>
+            </div>
+            <span class="pill pill-dark">Paid — pickup pending</span>
+          </div>
+
+          <div class="row">
+            <span class="row-label">Pickup</span
+            ><span class="row-value">24 Apr 09:00</span>
+          </div>
+          <div class="row">
+            <span class="row-label">Return</span
+            ><span class="row-value">26 Apr 18:00</span>
+          </div>
+          <div class="row">
+            <span class="row-label">Paid</span
+            ><span class="row-value">€ 156.00</span>
+          </div>
+        </div>
+
+        <!-- Pickup -->
+        <div class="section-title">Pickup address</div>
+        <div class="card">
+          <div class="map-box">[ MAP ]</div>
+          <div style="font-weight: 600">████ Street 12, ████</div>
+          <div class="tiny mut">200 m walking distance</div>
+        </div>
+
+        <!-- Other actions -->
+        <div class="section-title">Manage</div>
+        <div class="vstack" style="gap: 8px">
+          <div class="card-row">
+            <div class="grow">
+              <div style="font-weight: 600">Message lender</div>
+              <div class="tiny mut">Coordinate exact pickup time</div>
+            </div>
+            <span>›</span>
+          </div>
+          <div class="card-row">
+            <div class="grow">
+              <div style="font-weight: 600">View receipts</div>
+              <div class="tiny mut">Rental fee + deposit</div>
+            </div>
+            <span>›</span>
+          </div>
+        </div>
+
+        <!-- Policy hint -->
+        <div class="tiny mut" style="margin-top: 8px">
+          Note: cancellations made <b>before 48 h</b> from pickup receive a
+          reduced refund.
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn-destructive btn btn-block">Cancel booking</button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+@startuml PAL_Activity_UC06
+' PAL — Activity diagram for UC-06: Pay the rental deposit
+
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam ActivityBackgroundColor #FDF6E3
+skinparam ActivityBorderColor #333
+skinparam ActivityDiamondBackgroundColor #FDF6E3
+skinparam ActivityDiamondBorderColor #333
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #888
+
+|Borrower|
+start
+:Open the Approved RentalRequest\n(from notification or "My requests");
+
+|System|
+:Show payment summary\n(tool, interval, rental fee, deposit,\ntotal to charge now, refund logic);
+
+repeat
+  |Borrower|
+  :Pick a payment method\n(existing card or new card);
+
+  if (Confirm payment?) then (abort)
+    |System|
+    :No charge performed;
+    :RentalRequest stays Approved;
+    stop
+  else (confirm)
+  endif
+
+  |System|
+  :Send charge to Payment Gateway;
+
+  |Payment Gateway|
+  :Process charge\n(rental fee + deposit);
+
+  |System|
+  if (Gateway outcome?) then (success)
+    :Create Booking\n(state: Paid – Pickup pending);
+    :Link Booking to RentalRequest;
+    :Capture Payment (state: Captured);
+    :Notify Lender:\n"Booking paid — arrange pickup";
+    |Borrower|
+    :See Borrowing detail screen;
+    stop
+  elseif (timeout) then (timeout)
+    note right
+      Async reconciliation;
+      Booking is created only
+      after confirmation arrives.
+    end note
+    :Mark Payment -> Pending;
+    :Enqueue async reconciliation job;
+    |Borrower|
+    :Informed: payment is being confirmed;
+    stop
+  else (rejected)
+    |System|
+    :Show gateway error to Borrower;
+  endif
+
+repeat while (Try a different method?) is (yes) not (no — give up)
+
+|System|
+:No Booking is created;
+:RentalRequest stays Approved;
+stop
+
+@enduml

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-07 — Handover disputed</title>
+    <link rel="stylesheet" href="_shared.css" />
+    <style>
+      .alert-warn {
+        border: 2px solid #222;
+        background: repeating-linear-gradient(
+          45deg,
+          #fff,
+          #fff 6px,
+          #f0f0f0 6px,
+          #f0f0f0 12px
+        );
+      }
+      .alert-warn .alert-title::before {
+        content: "⚠  ";
+        font-weight: 700;
+      }
+      .attach-row {
+        display: flex;
+        gap: 8px;
+      }
+      .attach-row .photo-slot {
+        width: 64px;
+        height: 64px;
+        aspect-ratio: 1/1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-07 · 4</b> — Handover disputed (alt 5a) · mobile 390×844
+    </div>
+
+    <div class="device">
+      <div class="statusbar"><span>9:41</span><span>████</span></div>
+
+      <header class="app-header">
+        <span class="back-btn">←</span>
+        <h1>Handover disputed</h1>
+      </header>
+
+      <div class="context-banner">
+        <span>Booking · state: <b>Paid — pickup pending (held)</b></span>
+        <span class="mut">Dispute open</span>
+      </div>
+
+      <div class="content">
+        <!-- Alert -->
+        <div class="alert alert-warn">
+          <div class="alert-title">Handover disputed</div>
+          <div class="alert-body">
+            The booking will <b>not change state</b> until the dispute is
+            resolved. A PAL agent will review the evidence within 24 h.
+          </div>
+        </div>
+
+        <!-- Tool summary -->
+        <div class="card-row">
+          <div class="img-box thumb"><span>IMG</span></div>
+          <div class="grow">
+            <div style="font-weight: 600">Heavy Duty Drill</div>
+            <div class="tiny mut">Lender: ████ ████ · Booking #BK-20402</div>
+          </div>
+        </div>
+
+        <!-- Borrower's side of the story -->
+        <div class="section-title">Your side of the story</div>
+        <textarea
+          class="textarea"
+          placeholder="████ ████ ████ ████ ████ ████ — explain what does not match the photos."
+        ></textarea>
+
+        <!-- Attach photos -->
+        <div class="section-title">Attach photos (optional)</div>
+        <div class="attach-row">
+          <div class="photo-slot filled"><span>IMG</span></div>
+          <div class="photo-slot">+</div>
+          <div class="photo-slot">+</div>
+        </div>
+        <div class="tiny mut">
+          Tip: include the same angles the lender used so we can compare.
+        </div>
+
+        <!-- What happens next -->
+        <div class="card">
+          <div style="font-weight: 600">What happens next</div>
+          <ul class="plain">
+            <li>PAL reviews both sides within 24 h.</li>
+            <li>The booking stays held — no charges, no refund yet.</li>
+            <li>You'll be notified by push and email.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn">Submit dispute</button>
+        <a class="inline-link center">← Back to booking</a>
+      </div>
+    </div>
+  </body>
+</html>

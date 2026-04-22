@@ -1,0 +1,69 @@
+@startuml PAL_Activity_UC09
+' PAL — Activity diagram for UC-09: Cancel an upcoming reservation
+
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam ActivityBackgroundColor #FDF6E3
+skinparam ActivityBorderColor #333
+skinparam ActivityDiamondBackgroundColor #FDF6E3
+skinparam ActivityDiamondBorderColor #333
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #888
+
+|User (Borrower/Lender)|
+start
+:Open the booking detail;
+:Choose "Cancel";
+
+|System|
+if (Pickup time already passed?) then (yes)
+  :Disable "Cancel" option;
+  :Suggest opening a dispute instead;
+  stop
+else (no)
+  :Compute cancellation fee / refund\nfrom time remaining until pickup;
+  :Show cancellation policy and\nresulting fee or refund to user;
+  note right
+    Policy placeholder — confirm with product:
+    < 24h to pickup:  0% refund
+    24h – 72h:       50% refund
+    > 72h:          100% refund
+  end note
+endif
+
+|User (Borrower/Lender)|
+if (Confirm cancellation?) then (abort)
+  |System|
+  :No state change;
+  stop
+else (confirm)
+endif
+
+|System|
+:Booking -> Cancelled;
+:Record Cancellation\n(initiator, reason, refund amount);
+:Request refund from Payment Gateway;
+
+|Payment Gateway|
+if (Refund result?) then (success)
+  :Execute refund;
+  |System|
+  :Payment -> Refunded;
+  :Free the AvailabilitySlot;
+  :Notify the other party;
+  stop
+else (fail / gateway error)
+  :Return failure to System;
+  |System|
+  note right
+    Alt 6a — refund retried
+    asynchronously.
+  end note
+  :Payment -> Pending (refund);
+  :Enqueue async reconciliation job;
+  :Free the AvailabilitySlot;
+  :Notify the other party\n(refund will follow);
+  stop
+endif
+
+@enduml

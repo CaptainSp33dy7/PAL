@@ -1,0 +1,50 @@
+' PAL — State diagram for UC-06: Payment lifecycle
+@startuml PAL_State_UC06_Payment
+
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam StateBackgroundColor #FDF6E3
+skinparam StateBorderColor #333
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #888
+hide empty description
+
+title UC-06 — Payment state machine\n(rental fee + deposit; Booking is created as a side-effect on capture)
+
+[*] --> Pending : / submit charge to gateway
+
+Pending : do / wait for gateway response
+Pending --> Captured : gateway confirms success\n/ create Booking(PaidPickupPending),\n  notify lender, show Borrowing detail
+Pending --> Failed   : gateway rejects\n/ show error to borrower
+Pending --> Pending  : gateway timeout\n/ mark reconcile async (alt 5b)
+
+Failed --> Pending : borrower retries\nwith different method (alt 5a)
+Failed --> [*]     : borrower abandons\nafter N retries
+
+Captured --> Refunded : cancellation (UC-09)\nor dispute resolution\n/ refund via gateway
+Captured --> [*]      : booking settled normally\n(no refund needed)
+
+Refunded --> [*]
+
+note right of Pending
+  Self-transition (Pending → Pending) represents
+  UC-06 alt 5b: the Payment row stays in Pending
+  while async reconciliation runs against the gateway.
+end note
+
+note bottom of Captured
+  Side-effects of the
+  Pending → Captured transition:
+   • Booking created in state PaidPickupPending
+   • Lender notified
+   • Borrowing detail screen shown to borrower
+  (Cross-UC: feeds UC-07 handover.)
+end note
+
+note left of Refunded
+  Cross-UC edge from UC-09:
+  refund amount is computed by the
+  cancellation policy in UC-09.
+end note
+
+@enduml

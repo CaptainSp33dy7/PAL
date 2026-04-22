@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-09 — Cancellation confirmed</title>
+    <link rel="stylesheet" href="_shared.css" />
+    <style>
+      .alert-warn {
+        border: 2px solid #222;
+        background: repeating-linear-gradient(
+          45deg,
+          #fff,
+          #fff 6px,
+          #f0f0f0 6px,
+          #f0f0f0 12px
+        );
+      }
+      .alert-warn .alert-title::before {
+        content: "⚠  ";
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-09 · 3</b> — Cancellation confirmed (with alt 6a
+      refund-pending banner) · mobile 390×844
+    </div>
+
+    <div class="device">
+      <div class="statusbar"><span>9:41</span><span>████</span></div>
+
+      <header class="app-header">
+        <span class="back-btn">←</span>
+        <h1>Booking cancelled</h1>
+      </header>
+
+      <div class="context-banner">
+        <span>Booking · state: <b>Cancelled</b></span>
+        <span class="mut">#BK-20402</span>
+      </div>
+
+      <div class="content">
+        <!-- Alt 6a: refund pending alert at top (collapsed alternative variant) -->
+        <div class="alert alert-warn">
+          <div class="alert-title">Refund pending</div>
+          <div class="alert-body">
+            The payment gateway didn't confirm the refund yet — we'll reconcile
+            automatically and notify you.
+          </div>
+        </div>
+
+        <div class="center" style="margin-top: 6px">
+          <div class="big-check">✓</div>
+          <div style="font-size: 16px; font-weight: 600; margin-top: 8px">
+            Booking cancelled
+          </div>
+          <div class="small mut" style="max-width: 300px; margin: 6px auto 0">
+            A refund of <b>€ 138.00</b> is on its way (2–5 business days).
+          </div>
+        </div>
+
+        <!-- Tool summary mini -->
+        <div class="card-row">
+          <div class="img-box thumb"><span>IMG</span></div>
+          <div class="grow">
+            <div style="font-weight: 600">Heavy Duty Drill</div>
+            <div class="tiny mut">24 Apr → 26 Apr · cancelled at 9:41</div>
+          </div>
+        </div>
+
+        <!-- What happens next -->
+        <div class="section-title">What happens next</div>
+        <div class="card">
+          <ul class="plain">
+            <li>Availability slot has been freed for other borrowers.</li>
+            <li>The lender (████ ████) has been notified.</li>
+            <li>Refund of € 138.00 will appear on your card statement.</li>
+            <li>You can rate this experience from <i>My rentals</i>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn">Back to my bookings</button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-05 — Request Detail</title>
+    <link rel="stylesheet" href="_shared.css" />
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-05 · 2</b> — Request detail · mobile 390×844
+    </div>
+
+    <div class="device">
+      <div class="statusbar"><span>9:41</span><span>████</span></div>
+
+      <header class="app-header">
+        <span class="back-btn">←</span>
+        <h1>Rental request</h1>
+        <span class="pill">Pending</span>
+      </header>
+
+      <div class="context-banner">
+        <span>RentalRequest · state: Pending</span>
+        <span class="mut">Expires in 22 h</span>
+      </div>
+
+      <div class="content">
+        <!-- Tool block -->
+        <div class="section-title">Tool</div>
+        <div class="card">
+          <div class="hstack">
+            <div class="img-box thumb"><span>IMG</span></div>
+            <div class="grow">
+              <div style="font-weight: 600; font-size: 15px">
+                Heavy Duty Drill
+              </div>
+              <div class="tiny mut">Power tools · ████ ████ ████</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Requested interval & pricing -->
+        <div class="section-title">Requested</div>
+        <div class="card">
+          <div class="row">
+            <span class="row-label">Interval</span
+            ><span class="row-value">24 Apr 09:00 → 26 Apr 18:00</span>
+          </div>
+          <div class="row">
+            <span class="row-label">Rental price</span
+            ><span class="row-value">€ 36.00</span>
+          </div>
+          <div class="row">
+            <span class="row-label">Refundable deposit</span
+            ><span class="row-value">€ 120.00</span>
+          </div>
+        </div>
+
+        <!-- Borrower profile -->
+        <div class="section-title">Borrower</div>
+        <div class="card">
+          <div class="hstack">
+            <div class="img-box thumb" style="border-radius: 50%">
+              <span>IMG</span>
+            </div>
+            <div class="grow">
+              <div style="font-weight: 600">████ ████</div>
+              <div class="hstack mt-8" style="gap: 6px">
+                <span class="badge">✓ ID verified</span>
+                <span class="badge">Member since ████</span>
+              </div>
+              <div class="hstack mt-8" style="gap: 8px">
+                <span class="stars">★★★★<span class="dim">★</span></span>
+                <span class="tiny mut">4.2 · 18 reviews</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top: 4px">
+            Recent reviews
+          </div>
+          <div class="vstack" style="gap: 6px">
+            <div
+              style="border: 1px solid #ddd; border-radius: 4px; padding: 8px"
+            >
+              <div class="hstack" style="justify-content: space-between">
+                <span class="stars">★★★★★</span>
+                <span class="tiny mut">14 Apr</span>
+              </div>
+              <div class="small mut">“████ ████ ████ ████ ████ ████.”</div>
+            </div>
+            <div
+              style="border: 1px solid #ddd; border-radius: 4px; padding: 8px"
+            >
+              <div class="hstack" style="justify-content: space-between">
+                <span class="stars">★★★<span class="dim">★★</span></span>
+                <span class="tiny mut">02 Apr</span>
+              </div>
+              <div class="small mut">“████ ████ ████ ████.”</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional message -->
+        <div class="section-title">Message from borrower</div>
+        <div class="card">
+          <div class="quote">████ ████ ████ ████ ████ ████ ████ ████ ████.</div>
+        </div>
+      </div>
+
+      <div class="action-bar row-layout">
+        <button class="btn btn-outline">Reject</button>
+        <button class="btn">Approve</button>
+      </div>
+    </div>
+  </body>
+</html>

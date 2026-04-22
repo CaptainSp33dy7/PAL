@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UC-06 — Payment method picker</title>
+    <link rel="stylesheet" href="_shared.css" />
+  </head>
+  <body>
+    <div class="caption">
+      Screen <b>UC-06 · 2</b> — Payment method picker · mobile 390×844
+    </div>
+
+    <div class="device">
+      <div class="statusbar"><span>9:41</span><span>████</span></div>
+
+      <header class="app-header">
+        <span class="back-btn">←</span>
+        <h1>Payment method</h1>
+      </header>
+
+      <div class="content">
+        <div class="section-title">Saved cards</div>
+
+        <div class="vstack" style="gap: 8px">
+          <div class="radio-row">
+            <div class="radio-dot selected"></div>
+            <div class="img-box thumb-sm"><span>VISA</span></div>
+            <div class="grow">
+              <div style="font-weight: 600">Visa •••• 4242</div>
+              <div class="tiny mut">Expires 09/27</div>
+            </div>
+          </div>
+
+          <div class="radio-row">
+            <div class="radio-dot"></div>
+            <div class="img-box thumb-sm"><span>MC</span></div>
+            <div class="grow">
+              <div style="font-weight: 600">Mastercard •••• 0117</div>
+              <div class="tiny mut">Expires 02/26</div>
+            </div>
+          </div>
+
+          <!-- Add new card row, expanded -->
+          <div
+            class="radio-row"
+            style="flex-direction: column; align-items: stretch; gap: 8px"
+          >
+            <div class="hstack">
+              <div class="radio-dot"></div>
+              <div style="font-weight: 600">+ Add new card</div>
+            </div>
+            <input
+              class="text-input"
+              placeholder="Card number  ████ ████ ████ ████"
+            />
+            <div class="hstack">
+              <input class="text-input" placeholder="Expiry MM/YY" />
+              <input class="text-input" placeholder="CVC" />
+            </div>
+            <input class="text-input" placeholder="Name on card  ████ ████" />
+          </div>
+        </div>
+
+        <div class="tiny mut" style="margin-top: 8px">
+          Cards are stored by our payment processor (PCI-compliant). PAL never
+          stores raw card data.
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn">Use this method</button>
+      </div>
+    </div>
+  </body>
+</html>

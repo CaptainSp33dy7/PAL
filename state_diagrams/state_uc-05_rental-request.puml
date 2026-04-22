@@ -1,0 +1,42 @@
+' PAL — State diagram for UC-05: RentalRequest lifecycle
+@startuml PAL_State_UC05_RentalRequest
+
+skinparam shadowing false
+skinparam ArrowColor #444
+skinparam StateBackgroundColor #FDF6E3
+skinparam StateBorderColor #333
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #888
+hide empty description
+
+title UC-05 — RentalRequest state machine
+
+[*] --> Pending : / submit request (UC-04)
+
+Pending : entry / notify lender (push + email)
+Pending : do / wait for lender decision
+
+Pending --> Approved : lender approves [within deadline]\n/ reserve slot, notify borrower
+Pending --> Rejected : lender rejects\n/ notify borrower, release slot
+Pending --> Expired : deadline elapsed (24h)\n/ auto-reject, notify both parties
+
+Approved : entry / hold AvailabilitySlot for borrower
+Approved --> [*] : borrower paid (UC-06)\n/ becomes Booking (PaidPickupPending)
+
+Rejected --> [*]
+Expired  --> [*]
+
+note bottom of Pending
+  Source: UC-05 Basic Flow steps 3–5,
+  Alternative Flow 3a (auto-reject after 24h).
+  Deadline default 24h; configurable per UC-05 alt 3a.
+end note
+
+note right of Approved
+  Cross-UC edge:
+  the exit Approved → [*] is taken
+  when UC-06 captures the rental-fee
+  + deposit Payment.
+end note
+
+@enduml
