@@ -51,7 +51,7 @@ AC_B --> UC11
 ' --- Use case relationships ---
 
 ' UC-01 (list a tool) is a precondition for UC-02 (managing its availability).
-UC02 ..> UC01 : <<include>>
+UC01 ..> UC02 : <<include>>
 
 ' Viewing a tool detail extends searching it on the map.
 UC03a .u.> UC03 : <<extend>>
