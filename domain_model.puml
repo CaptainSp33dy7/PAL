@@ -1,9 +1,5 @@
 @startuml PAL_DomainModel
 ' PAL - Peer Asset Lending - Domain Model (Conceptual Model)
-' Notation follows the lecture NSWI041-06 (UML class diagram with
-' UML classes for domain classes, attributes for intrinsic aspects,
-' associations for domain relations, and association classes for
-' associations that carry attributes).
 
 skinparam shadowing false
 skinparam classBackgroundColor #FDF6E3

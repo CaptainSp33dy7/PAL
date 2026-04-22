@@ -1,7 +1,5 @@
 @startuml PAL_UseCaseDiagram
 ' PAL - Peer Asset Lending - Use Case Diagram
-' Two subjects to keep the diagram readable, following the lecture's
-' "more subjects" approach (slide 59 of NSWI041-04).
 
 left to right direction
 skinparam packageStyle rectangle
